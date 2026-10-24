@@ -3,6 +3,8 @@
 
 let users = [];
 let nextId = 1;
+let posts = [];
+let nextPostId = 1;
 
 function seed() {
   users = [
@@ -10,6 +12,11 @@ function seed() {
     { id: 2, name: 'Alan Turing', email: 'alan@example.com' },
   ];
   nextId = 3;
+  posts = [
+    { id: 1, title: 'Hello world', body: 'The first post.' },
+    { id: 2, title: 'Second post', body: 'Another one.' },
+  ];
+  nextPostId = 3;
 }
 seed();
 
@@ -44,9 +51,52 @@ function deleteUser(id) {
   return removed;
 }
 
+function listPosts() {
+  return posts;
+}
+
+function getPost(id) {
+  return posts.find((post) => post.id === id);
+}
+
+function createPost({ title, body }) {
+  const post = { id: nextPostId, title, body };
+  nextPostId += 1;
+  posts.push(post);
+  return post;
+}
+
+function updatePost(id, fields) {
+  const post = getPost(id);
+  if (!post) return undefined;
+  if (fields.title !== undefined) post.title = fields.title;
+  if (fields.body !== undefined) post.body = fields.body;
+  return post;
+}
+
+// Remove a post. Returns the removed post, or undefined if it doesn't exist.
+function deletePost(id) {
+  const index = posts.findIndex((post) => post.id === id);
+  if (index === -1) return undefined;
+  const [removed] = posts.splice(index, 1);
+  return removed;
+}
+
 // Reset to the seed data. Used by the tests so each one starts clean.
 function reset() {
   seed();
 }
 
-module.exports = { listUsers, getUser, createUser, updateUser, deleteUser, reset };
+module.exports = {
+  listUsers,
+  getUser,
+  createUser,
+  updateUser,
+  deleteUser,
+  listPosts,
+  getPost,
+  createPost,
+  updatePost,
+  deletePost,
+  reset,
+};

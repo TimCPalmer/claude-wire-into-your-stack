@@ -1,12 +1,14 @@
 const express = require('express');
 const usersRouter = require('./routes/users');
 const healthRouter = require('./routes/health');
+const postsRouter = require('./routes/posts');
 
 const app = express();
 app.use(express.json());
 
 app.use('/health', healthRouter);
 app.use('/users', usersRouter);
+app.use('/posts', postsRouter);
 
 const PORT = process.env.PORT || 3000;
 
@@ -19,3 +21,5 @@ if (require.main === module) {
 }
 
 module.exports = app;
+
+const x = { a: 1, b: 2 };

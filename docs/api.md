@@ -35,3 +35,25 @@ Updates an existing user. Body may include `name`, `email`, or both. Returns the
 
 ### DELETE /users/:id
 Deletes a user. Returns `204` with no body, `400` if the id is not an integer, or `404` if the user does not exist.
+
+## Posts
+
+A post looks like:
+```json
+{ "id": 1, "title": "Hello world", "body": "The first post." }
+```
+
+### GET /posts
+Returns an array of all posts.
+
+### GET /posts/:id
+Returns a single post, `400` if the id is not an integer, or `404` if no post has that id.
+
+### POST /posts
+Creates a post. Body requires `title` and `body` as non-empty strings; returns `201` with the created post, or `400` if either is missing or invalid.
+
+### PUT /posts/:id
+Updates an existing post. Body may include `title`, `body`, or both, as non-empty strings. Returns the updated post, `400` if the id is not an integer, neither field is given, or a given field is invalid, or `404` if the post does not exist.
+
+### DELETE /posts/:id
+Deletes a post. Returns `204` with no body, `400` if the id is not an integer, or `404` if the post does not exist.

@@ -21,5 +21,3 @@ if (require.main === module) {
 }
 
 module.exports = app;
-
-const x = { a: 1, b: 2 };

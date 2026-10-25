@@ -24,4 +24,6 @@ I ran a docs-vs-routes audit with `claude -p`:
 claude -p "Check that docs/api.md documents every route in routes/*.js, with the same status codes and 400/404 cases. List any mismatches as file:line with a one-line suggested fix. If everything matches, say so. Do not edit any files." --allowedTools "Read,Grep,Glob"
 ```
 
-The task only needs to find and read files, so I allowed `Read`, `Grep` and `Glob`. There's no `Edit`/`Write`, so it can't change anything, and no `Bash`, so it can't run commands. In `-p` mode any tool outside the list is denied rather than prompted. The project's own allow rules still apply, so the read-only Context7 tools were available too. Result: TODO, paste the summary here.
+The task only needs to find and read files, so I allowed `Read`, `Grep` and `Glob`. There's no `Edit`/`Write`, so it can't change anything, and no `Bash`, so it can't run commands. In `-p` mode any tool outside the list is denied rather than prompted. The project's own allow rules still apply, so the read-only Context7 tools were available too.
+
+Result: it exited cleanly and reported that all 11 routes (`/health`, 5 `/users`, 5 `/posts`) match `docs/api.md`, citing a doc line for each, and it left the working tree untouched. It also flagged, without being asked, that `/users` doesn't yet return `400` for a non-integer id or type-check fields the way `/posts` does. That's the same gap the Context7 check found, and a good follow-up.
